@@ -34,23 +34,30 @@ string decode(string msg, string key) {
 }
 
 string crack(string s, int keylength) {
-	vector<vector<int>> freq(4, vector<int>(range, 0));
-	int len = s.length(), i = 0;
-	for (char c : s) {
-		freq[i][c - first]++;
-		i++;
-		if (i == keylength) i = 0;
+	vector<vector<int>> freq(keylength, vector<int>(range, 0));
+	for (int i = 0;s[i];i++) {
+		freq[i % keylength][s[i] - first]++;/*@*/
+		if (s[i] - first >= range) cerr << s[i] << endl;/*@*/
 	}
 	string key = "";
 	for (int i = 0;i < keylength;i++) {
 		int maxf = 0, id;
 		for (int j = 0;j < range;j++) {
-			if (maxf < freq[i][j]) {
+			if (maxf <= freq[i][j]) {
 				maxf = freq[i][j];
 				id = j;
 			}
 		}/*@*/cerr << id << endl;/*@*/
-		key += (char)id;
+		key += (char)id + first;
+	}
+	return key;
+}/*@*/
+
+
+string crack2(string s, string hint) {
+	string key = "";
+	for(int i = 0;hint[i];i++) {
+		key += (s[i] - hint[i] + range) % range + first;
 	}
 	return key;
 }

@@ -7,6 +7,6 @@ using namespace std;
 int main() {
 	string msg;
 	getline(cin, msg);
-	cout << encode(msg, "ufabc") << endl;
+	cout << encode(msg, "ufab") << endl;
 	return 0;
 }
