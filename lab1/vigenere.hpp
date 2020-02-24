@@ -36,8 +36,7 @@ string decode(string msg, string key) {
 string crack(string s, int keylength) {
 	vector<vector<int>> freq(keylength, vector<int>(range, 0));
 	for (int i = 0;s[i];i++) {
-		freq[i % keylength][s[i] - first]++;/*@*/
-		if (s[i] - first >= range) cerr << s[i] << endl;/*@*/
+		freq[i % keylength][s[i] - first]++;
 	}
 	string key = "";
 	for (int i = 0;i < keylength;i++) {
@@ -47,17 +46,8 @@ string crack(string s, int keylength) {
 				maxf = freq[i][j];
 				id = j;
 			}
-		}/*@*/cerr << id << endl;/*@*/
+		}
 		key += (char)id + first;
-	}
-	return key;
-}/*@*/
-
-
-string crack2(string s, string hint) {
-	string key = "";
-	for(int i = 0;hint[i];i++) {
-		key += (s[i] - hint[i] + range) % range + first;
 	}
 	return key;
 }
